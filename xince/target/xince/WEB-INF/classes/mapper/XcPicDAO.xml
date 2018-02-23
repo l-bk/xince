@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xc.pic.dao.XcPicDao">
+    <sql id="selectAll">
+        a.pic_id AS "picId",
+        a.pic_path AS "picPath",
+        a.pic_type AS "picType",
+        a.del_flag AS "delFlag",
+        a.pic_status AS "picStatus",
+        a.pic_name AS "picName"
+    </sql>
+    <select id="selectAll" parameterType="com.xc.pic.entity.XcPic" resultType="com.xc.pic.entity.XcPic" >
+        select
+        <include refid="selectAll"/>
+        from xc_picture AS a
+        <where>
+            <if test="picStatus != null and picStatus != ''">
+                a.pic_status = #{picStatus}
+            </if>
+
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.xc.user.dao.XcWechatDao">
+
+    <sql id="selectAll">
+        a.user_id AS "userId",
+        a.open_id AS "openId",
+        a.user_sex AS "userSex",
+        a.user_name AS "userName"
+    </sql>
+    
+    <select id="ifExist" parameterType="com.xc.user.entity.XcWechat"  resultType="com.xc.user.entity.XcWechat">
+        select
+        <include refid="selectAll"/>
+        from xc_wechat AS a
+        where a.open_id = #{openId}
+    </select>
+
+
+    <insert id="insert" parameterType="com.xc.user.entity.XcWechat">
+        insert into xc_wechat
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="openId != null and openId != ''">
+                open_id,
+            </if>
+            <if test="userSex != null and userSex != ''">
+                user_sex,
+            </if>
+            <if test="userName != null and userName != ''">
+                user_name,
+            </if>
+        </trim>
+        <trim prefix="values(" suffix=")" suffixOverrides=",">
+            <if test="openId != null and openId != ''">
+                #{openId},
+            </if>
+            <if test="userSex != null and userSex != ''">
+                #{userSex},
+            </if>
+            <if test="userName != null and userName != ''">
+                #{userName},
+            </if>
+        </trim>
+
+    </insert>
+</mapper>
