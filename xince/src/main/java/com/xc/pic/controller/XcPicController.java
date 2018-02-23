@@ -30,8 +30,10 @@ public class XcPicController {
             pic.setPicStatus("1");
             List<XcPic> picList = xcPicService.selectAll(pic);
             result.setMsg("查询成功");
+            result.setSuccess(true);
             result.setObj(picList);
         }catch (Exception e){
+            result.setSuccess(false);
             result.setMsg("查询失败");
         }
         return  result;

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xc.module.dao.XcModuleDao">
+    <sql id="selectAll">
+        a.module_id AS "moduleId",
+        a.module_name AS "moduleName",
+        a.module_type AS "moduleType",
+        a.test_id AS "testId",
+        a.pic_id AS "picId",
+        a.module_status AS "moduleStatus"
+    </sql>
+    <select id="findList" resultType="com.xc.module.entity.XcModule" parameterType="com.xc.module.entity.XcModule">
+        select
+        <include refid="selectAll"/>
+        from xc_module AS  a
+        <where>
+            <if test="moduleStatus != null and moduleStatus != ''">
+                a.module_status = #{moduleStatus}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectDetails" parameterType="com.xc.module.entity.XcModule" resultType="java.util.Map">
+        SELECT
+        <include refid="selectAll"/>
+        <if test="moduleType == 0">
+            ,p.pic_id AS "pictureId",
+            CONCAT("118.126.94.107:8080",p.pic_path) AS "picPath",
+            p.pic_type AS "picType",
+            p.pic_status AS "picStatus",
+            p.pic_name AS "picName"
+        </if>
+        <if test="moduleType == 1">
+            ,i.test_id AS "testInfoId",
+            i.test_title AS  "testTitle",
+            i.test_subject AS "testSubject",
+            i.test_pic AS  "testPic",
+            i.test_type AS "testType",
+            i.pay_flag AS "payFlag",
+            i.test_presentation AS "testPresentation",
+            i.test_num AS "testNum",
+            i.test_use_time AS  "testUseTime",
+            i.test_price AS "testPrice",
+            i.test_preferential_price AS "testPreferentialPrice",
+            i.test_report_length AS  "testReportLength",
+            i.test_prompt AS "testPrompt"
+        </if>
+        from xc_module AS  a
+        <if test="moduleType == 0">
+            left JOIN  xc_picture AS p
+            ON  a.pic_id = p.pic_id
+        </if>
+        <if test="moduleType == 1">
+            LEFT  JOIN xc_test_info AS  i
+            ON  a.test_id = i.test_id
+        </if>
+        <where>
+            <if test="moduleStatus != null and moduleStatus != ''">
+                a.module_status = #{moduleStatus}
+            </if>
+            <if test="moduleId != null and moduleId != ''">
+                and a.module_id = #{moduleId}
+            </if>
+        </where>
+
+    </select>
+</mapper>
