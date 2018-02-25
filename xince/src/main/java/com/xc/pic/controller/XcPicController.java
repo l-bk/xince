@@ -28,6 +28,7 @@ public class XcPicController {
         try{
             XcPic pic = new XcPic();
             pic.setPicStatus("1");
+            pic.setPicType("1");
             List<XcPic> picList = xcPicService.selectAll(pic);
             result.setMsg("查询成功");
             result.setSuccess(true);

@@ -23,17 +23,17 @@ public class XcModuleController {
     @ResponseBody
     public AjaxJSON findList(@RequestParam Map<String,Object> param){
         AjaxJSON result =new AjaxJSON();
-        try{
+//        try{
             XcModule xcModule=new XcModule();
             xcModule.setModuleStatus("1");//上架
             List<XcModule> list = xcModuleService.findList(xcModule);
             result.setObj(list);
             result.setSuccess(true);
             result.setMsg("查询成功");
-        }catch (Exception e){
-            result.setSuccess(false);
-            result.setMsg("查询失败");
-        }
+//        }catch (Exception e){
+//            result.setSuccess(false);
+//            result.setMsg("查询失败");
+//        }
         return result;
     }
 

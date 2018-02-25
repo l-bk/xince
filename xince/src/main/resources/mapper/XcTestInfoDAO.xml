@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xc.test.dao.XcTestInfoDao">
+    <sql id="selectAll">
+        a.test_id AS "testId",
+        a.test_subject AS "testSubject",
+        CONCAT("http://118.126.94.107:8080",a.test_pic) AS "testPic",
+        a.test_type AS "testType",
+        a.pay_flag AS "payFlag",
+        a.test_presentation AS "testPresentation",
+        a.test_num AS  "testNum",
+        a.test_use_time AS "testUseTime",
+        a.test_price AS  "testPrice",
+        a.test_preferential_price AS "testPreferentialPrice",
+        a.test_report_length AS "testReportLength",
+        a.test_prompt AS "testPrompt",
+        a.del_flag AS "delFlag",
+        a.create_time AS "createTime",
+        a.if_show AS "ifShow"
+    </sql>
+
+    <select id="findList" parameterType="com.xc.test.entity.XcTestInfo" resultType="com.xc.test.entity.XcTestInfo">
+        select
+        <include refid="selectAll"/>
+        from xc_test_info AS a
+        <where>
+            <if test="testSubject != null and testSubject != ''">
+                a.test_subject like CONCAT('%',#{testSubject},'%')
+            </if>
+            <if test="ifShow != null and ifShow != ''">
+                and a.if_show = #{ifShow}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectDetails" parameterType="com.xc.test.entity.XcTestInfo" resultType="java.util.Map">
+        select
+        <include refid="selectAll"/>
+        from xc_test_info AS  a
+        <where>
+            a.test_id = #{testId}
+        </where>
+    </select>
+</mapper>

@@ -26,14 +26,15 @@ public class XcWechatServiceImpl implements XcWechatService {
     //初始化redis用户存储时间
     private static final int SESSION_TIME = 20;
 
-    private static final String appid = "wxa40025bf8ead1e26";
-    private static final String app_se= "3d18bab9a9c55408c573200113139f6f";
+    private static final String appid = "wxdfd747621d9b1cfd";
+    private static final String secret= "a7f2d3589a8449be92ba591d52a7e428";
     private static final String url="https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code";
 
 
 
+
     public String WeChatLogin(String code) {
-        String app_url = url.replace("APPID",appid).replace("SECRET",app_se).replace("JSCODE",code);
+        String app_url = url.replace("APPID",appid).replace("SECRET",secret).replace("JSCODE",code);
         JSONObject resultJSON = JSONObject.fromObject(RequestUtils.httpRequest(app_url));
         if(resultJSON.containsKey("errcode")){
             return "error";

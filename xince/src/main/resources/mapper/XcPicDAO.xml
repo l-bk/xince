@@ -3,7 +3,7 @@
 <mapper namespace="com.xc.pic.dao.XcPicDao">
     <sql id="selectAll">
         a.pic_id AS "picId",
-        CONCAT("118.126.94.107:8080",a.pic_path) AS "picPath",
+        CONCAT("http://118.126.94.107:8080",a.pic_path) AS "picPath",
         a.pic_type AS "picType",
         a.del_flag AS "delFlag",
         a.pic_status AS "picStatus",
@@ -17,7 +17,9 @@
             <if test="picStatus != null and picStatus != ''">
                 a.pic_status = #{picStatus}
             </if>
-
+           <!-- <if test="picType != null and picType != ''">
+                and a.pic_type = #{picType}
+            </if>-->
         </where>
     </select>
 </mapper>

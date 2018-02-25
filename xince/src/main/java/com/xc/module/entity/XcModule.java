@@ -7,6 +7,15 @@ public class XcModule {
     private Integer testId;
     private Integer picId;
     private String moduleStatus;
+    private String modulePic;
+
+    public String getModulePic() {
+        return modulePic;
+    }
+
+    public void setModulePic(String modulePic) {
+        this.modulePic = modulePic;
+    }
 
     public Integer getModuleId() {
         return moduleId;
@@ -54,5 +63,17 @@ public class XcModule {
 
     public void setModuleStatus(String moduleStatus) {
         this.moduleStatus = moduleStatus;
+    }
+
+
+    // -------------------------------
+    private String picPath;
+
+    public String getPicPath() {
+        return picPath;
+    }
+
+    public void setPicPath(String picPath) {
+        this.picPath = picPath;
     }
 }
