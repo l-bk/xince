@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xc.test.dao.XcTestOptionsDao">
+    <sql id="selectAll">
+      a.options_id AS "optionsId",
+      a.options_keyword AS "optionsKeyword",
+      a.options_details AS "optionsDetails",
+      a.options_point AS "optionsPoint",
+      a.test_question_id AS "testQuestionId",
+      a.create_time AS "createTime",
+      a.if_skip AS "ifSkip",
+      a.skip_question_id AS "skipQuestionId"
+    </sql>
+
+
+</mapper>

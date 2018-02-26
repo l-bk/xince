@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xc.test.dao.XcTestAnswerDao">
+    <sql id="selectAll">
+      a.answer_id AS "answerId",
+      a.answer_pic AS "answerPic",
+      a.answer_sketch AS "answerSketch",
+      a.answer_keyword AS "answerKeyword",
+      a.answer_details AS "answerDetails",
+      a.answer_point_lt AS "answerPointLt",
+      a.answer_point_gt AS "answerPointGt",
+      a.answer_QRCode AS "answerQRCode",
+      a.del_flag AS "delFlag",
+      a.test_id AS "testId",
+      a.create_time AS "createTime"
+    </sql>
+
+
+</mapper>

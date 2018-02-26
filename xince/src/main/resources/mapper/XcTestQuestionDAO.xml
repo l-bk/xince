@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xc.test.dao.XcTestQuestionDao">
+    <sql id="selectAll">
+        a.question_id AS "questionId",
+        a.question_details As "questionDetails",
+        a.test_id AS "testId",
+        a.question_num AS "questionNum",
+        a.create_time AS "createTime"
+    </sql>
+</mapper>
