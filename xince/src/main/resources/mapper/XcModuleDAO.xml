@@ -14,7 +14,7 @@
     <select id="findList" resultType="com.xc.module.entity.XcModule" parameterType="com.xc.module.entity.XcModule">
         select
         <include refid="selectAll"/>
-        ,CONCAT("118.126.94.107:8080",p.pic_path) AS  picPath
+        ,CONCAT("http://118.126.94.107:8080",p.pic_path) AS  picPath
         from xc_module AS  a
         left join xc_picture AS  p
         on a.pic_id = p.pic_id
