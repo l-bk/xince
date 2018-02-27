@@ -114,23 +114,24 @@ public class XcTestInfoController {
     @ResponseBody
     public AjaxJSON selectQuestion(@RequestParam Map<String,Object>param,@RequestBody AjaxJSON json){
         AjaxJSON result =new AjaxJSON();
-//        try{
-            //testId optionsId questionNum
+        try{
+            //testId optionsId
             XcTestQuestion xcTestQuestion =(XcTestQuestion)JSONObject.toBean(JSONObject.fromObject(json.getObj()),XcTestQuestion.class);
             XcTestOptions xcTestOptions=(XcTestOptions)JSONObject.toBean(JSONObject.fromObject(json.getObj()),XcTestOptions.class);
             int i=1;
             Map<String,Object> map= new HashMap<String, Object>();
-            if(null != xcTestOptions.getOptionsId() && !"".equals(xcTestOptions.getOptionsId())){
+
+        if(null != xcTestOptions.getOptionsId() && !"".equals(xcTestOptions.getOptionsId())){
                 XcTestOptions newOption = xcTestOptionsService.selectByOptionsId(xcTestOptions.getOptionsId());
                 if("1".equals(newOption.getIfSkip())){//跳题
-                    xcTestQuestionService.selectByQuestionId(newOption.getSkipQuestionId());
-                }else if("0".equals(newOption.getIfSkip())){
+                    map=xcTestQuestionService.selectByQuestionId(newOption.getSkipQuestionId());
+                }else if("0".equals(newOption.getIfSkip())){//不跳题
                     XcTestQuestion  newQuestion=xcTestQuestionService.selectByOptionsId(xcTestOptions.getOptionsId());
                     i=newQuestion.getQuestionNum()+1;
                     xcTestQuestion.setQuestionNum(i);
                     map= xcTestQuestionService.selectByTestId(xcTestQuestion); //查询问题
                 }
-            }else{
+            }else{ //获取第一个问题时没传optionsId
                 xcTestQuestion.setQuestionNum(i);
                 map= xcTestQuestionService.selectByTestId(xcTestQuestion); //查询问题
             }
@@ -140,10 +141,10 @@ public class XcTestInfoController {
             }
             result.setObj(map);
             result.setSuccess(true);
-//        }catch (Exception e){
-//            result.setSuccess(false);
-//            result.setMsg("查询失败");
-//        }
+        }catch (Exception e){
+            result.setSuccess(false);
+            result.setMsg("查询失败");
+        }
         return result;
     }
 
