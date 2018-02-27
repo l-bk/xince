@@ -23,6 +23,9 @@ public class XcTestInfoServiceImpl  implements XcTestInfoService{
     }
 
     public Map<String, Object> selectDetails(XcTestInfo xcTestInfo) {
+        if(null == xcTestInfo ){
+            return  null;
+        }
         return xcTestInfoDao.selectDetails(xcTestInfo);
     }
 }

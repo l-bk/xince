@@ -1,5 +1,6 @@
 package com.xc.test.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class XcTestInfo {
@@ -18,6 +19,7 @@ public class XcTestInfo {
     private String delFlag;
     private Date createTime;
     private String ifShow;
+    private BigDecimal testUseNum;
 
     public Integer getTestId() {
         return testId;
@@ -138,5 +140,13 @@ public class XcTestInfo {
 
     public void setIfShow(String ifShow) {
         this.ifShow = ifShow;
+    }
+
+    public BigDecimal getTestUseNum() {
+        return testUseNum;
+    }
+
+    public void setTestUseNum(BigDecimal testUseNum) {
+        this.testUseNum = testUseNum;
     }
 }

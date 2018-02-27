@@ -8,7 +8,7 @@ public class XcTestQuestion {
     private Integer questionId;
     private String questinDetails;
     private Integer testId;
-    private BigDecimal questionNum;
+    private Integer questionNum;
     private Date createTime;
 
     public Integer getQuestionId() {
@@ -35,11 +35,11 @@ public class XcTestQuestion {
         this.testId = testId;
     }
 
-    public BigDecimal getQuestionNum() {
+    public Integer getQuestionNum() {
         return questionNum;
     }
 
-    public void setQuestionNum(BigDecimal questionNum) {
+    public void setQuestionNum(Integer questionNum) {
         this.questionNum = questionNum;
     }
 

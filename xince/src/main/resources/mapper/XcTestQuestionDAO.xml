@@ -8,4 +8,37 @@
         a.question_num AS "questionNum",
         a.create_time AS "createTime"
     </sql>
+
+    <select id="selectByTestId" parameterType="com.xc.test.entity.XcTestQuestion" resultType="java.util.Map">
+        SELECT
+        <include refid="selectAll"/>
+        from xc_test_question AS a
+        <where>
+            <if test="testId != null and testId != ''">
+                a.test_id = #{testId}
+            </if>
+            <if test="questionNum != null and questionNum != ''">
+                and a.question_num = #{questionNum}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectCountByTestId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        select count(*) from xc_test_question
+        where test_id = #{testId}
+    </select>
+
+    <select id="selectByOptionsId" resultType="com.xc.test.entity.XcTestQuestion" parameterType="java.lang.Integer">
+        select
+        <include refid="selectAll"/>
+        from xc_test_question AS a
+        where a.question_id = (select p.test_question_id from xc_test_options AS p where  p.options_id  = #{optionsId})
+    </select>
+
+    <select id="selectByQuestionId" parameterType="java.lang.Integer" resultType="java.util.Map">
+        SELECT
+        <include refid="selectAll"/>
+        from xc_test_question AS a
+        where a.question_id = #{questionId}
+    </select>
 </mapper>

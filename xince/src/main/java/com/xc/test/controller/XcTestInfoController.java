@@ -12,10 +12,13 @@ import com.xc.test.service.XcTestOptionsService;
 import com.xc.test.service.XcTestQuestionService;
 import com.xc.util.AjaxJSON;
 import net.sf.json.JSONObject;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -70,9 +73,14 @@ public class XcTestInfoController {
         try{
             XcTestInfo xcTestInfo = (XcTestInfo)JSONObject.toBean(JSONObject.fromObject(json.getObj()),XcTestInfo.class);
             Map<String,Object> map =xcTestInfoService.selectDetails(xcTestInfo);
+            int total=0;
+            if(xcTestInfo.getTestId() != null){
+                 total =xcTestQuestionService.selectCountByTestId(xcTestInfo.getTestId());
+            }
             result.setMsg("查询成功");
             result.setSuccess(true);
             result.setObj(map);
+            result.setTotal(Long.valueOf(total));
         }catch(Exception e){
             result.setSuccess(false);
             result.setMsg("查询失败");
@@ -106,14 +114,36 @@ public class XcTestInfoController {
     @ResponseBody
     public AjaxJSON selectQuestion(@RequestParam Map<String,Object>param,@RequestBody AjaxJSON json){
         AjaxJSON result =new AjaxJSON();
-        try{
-            //testId optionsId
+//        try{
+            //testId optionsId questionNum
             XcTestQuestion xcTestQuestion =(XcTestQuestion)JSONObject.toBean(JSONObject.fromObject(json.getObj()),XcTestQuestion.class);
             XcTestOptions xcTestOptions=(XcTestOptions)JSONObject.toBean(JSONObject.fromObject(json.getObj()),XcTestOptions.class);
-        }catch (Exception e){
-            result.setSuccess(false);
-            result.setMsg("查询失败");
-        }
+            int i=1;
+            Map<String,Object> map= new HashMap<String, Object>();
+            if(null != xcTestOptions.getOptionsId() && !"".equals(xcTestOptions.getOptionsId())){
+                XcTestOptions newOption = xcTestOptionsService.selectByOptionsId(xcTestOptions.getOptionsId());
+                if("1".equals(newOption.getIfSkip())){//跳题
+                    xcTestQuestionService.selectByQuestionId(newOption.getSkipQuestionId());
+                }else if("0".equals(newOption.getIfSkip())){
+                    XcTestQuestion  newQuestion=xcTestQuestionService.selectByOptionsId(xcTestOptions.getOptionsId());
+                    i=newQuestion.getQuestionNum()+1;
+                    xcTestQuestion.setQuestionNum(i);
+                    map= xcTestQuestionService.selectByTestId(xcTestQuestion); //查询问题
+                }
+            }else{
+                xcTestQuestion.setQuestionNum(i);
+                map= xcTestQuestionService.selectByTestId(xcTestQuestion); //查询问题
+            }
+            if(map.size() != 0){
+                List<XcTestOptions> options=xcTestOptionsService.selectByQuestionId((Integer)map.get("questionId"));
+                map.put("options",options);
+            }
+            result.setObj(map);
+            result.setSuccess(true);
+//        }catch (Exception e){
+//            result.setSuccess(false);
+//            result.setMsg("查询失败");
+//        }
         return result;
     }
 

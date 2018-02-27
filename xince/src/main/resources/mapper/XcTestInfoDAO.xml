@@ -4,7 +4,7 @@
     <sql id="selectAll">
         a.test_id AS "testId",
         a.test_subject AS "testSubject",
-        CONCAT("http://118.126.94.107:8080",a.test_pic) AS "testPic",
+        CONCAT("http://www.magicdn.club",a.test_pic) AS "testPic",
         a.test_type AS "testType",
         a.pay_flag AS "payFlag",
         a.test_presentation AS "testPresentation",
@@ -16,7 +16,8 @@
         a.test_prompt AS "testPrompt",
         a.del_flag AS "delFlag",
         a.create_time AS "createTime",
-        a.if_show AS "ifShow"
+        a.if_show AS "ifShow",
+        a.test_use_num AS  "testUseNum"
     </sql>
 
     <select id="findList" parameterType="com.xc.test.entity.XcTestInfo" resultType="com.xc.test.entity.XcTestInfo">
