@@ -148,4 +148,27 @@ public class XcTestInfoController {
         return result;
     }
 
+    @RequestMapping(value="/selectAnswer.do",produces = "application/json",method = RequestMethod.POST)
+    @ResponseBody
+    public AjaxJSON selectAnswer (@RequestParam Map<String,Object>param,@RequestBody AjaxJSON json){
+        AjaxJSON result = new AjaxJSON();
+        try{
+            JSONObject newJson = JSONObject.fromObject(json.getObj());
+            String pointStr= newJson.getString("pointStr");
+            XcTestAnswer xcTestAnswer = (XcTestAnswer)JSONObject.toBean(newJson, XcTestAnswer.class);
+            String[] arr= pointStr.split(",");
+            int point=0;
+            for(int i=0;i<arr.length;i++){
+                point = Integer.valueOf(arr[i]);
+            }
+            xcTestAnswer.setPoint(point);
+            Map<String,Object> map= xcTestAnswerService.selectAnswerByPoint(xcTestAnswer);
+            result.setSuccess(true);
+            result.setObj(map);
+        }catch (Exception e){
+            result.setSuccess(false);
+            result.setMsg("查询失败");
+        }
+        return  result;
+    }
 }

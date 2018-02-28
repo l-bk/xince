@@ -15,5 +15,12 @@
       a.create_time AS "createTime"
     </sql>
 
+    <select id="selectAnswerByPoint" parameterType="com.xc.test.entity.XcTestAnswer" resultType="java.util.Map">
+      select
+      <include refid="selectAll"/>
+      from xc_test_answer AS  a
+      WHERE  a.answer_point_gt &lt; #{point} &lt; a.answer_point_lt
+        and a.test_id = #{testId}
+    </select>
 
 </mapper>

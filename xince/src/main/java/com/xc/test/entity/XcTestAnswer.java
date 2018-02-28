@@ -13,7 +13,9 @@ public class XcTestAnswer {
     private BigDecimal answerPointGt;
     private String answerQRCode;
     private String delFlag;
+    private Integer testId;
     private Date createTime;
+    private Integer point;
 
     public Integer getAnswerId() {
         return answerId;
@@ -93,5 +95,21 @@ public class XcTestAnswer {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Integer getPoint() {
+        return point;
+    }
+
+    public void setPoint(Integer point) {
+        this.point = point;
+    }
+
+    public Integer getTestId() {
+        return testId;
+    }
+
+    public void setTestId(Integer testId) {
+        this.testId = testId;
     }
 }

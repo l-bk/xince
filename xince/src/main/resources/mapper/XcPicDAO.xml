@@ -3,7 +3,7 @@
 <mapper namespace="com.xc.pic.dao.XcPicDao">
     <sql id="selectAll">
         a.pic_id AS "picId",
-        CONCAT("http://www.magicdn.club",a.pic_path) AS "picPath",
+        CONCAT("https://www.magicdn.club",a.pic_path) AS "picPath",
         a.pic_type AS "picType",
         a.del_flag AS "delFlag",
         a.pic_status AS "picStatus",

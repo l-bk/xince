@@ -4,7 +4,7 @@
     <sql id="selectAll">
         a.test_id AS "testId",
         a.test_subject AS "testSubject",
-        CONCAT("http://www.magicdn.club",a.test_pic) AS "testPic",
+        CONCAT("https://www.magicdn.club",a.test_pic) AS "testPic",
         a.test_type AS "testType",
         a.pay_flag AS "payFlag",
         a.test_presentation AS "testPresentation",
