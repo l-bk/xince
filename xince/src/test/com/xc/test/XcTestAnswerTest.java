@@ -8,6 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring-mybatis.xml","classpath:spring-redis.xml"})
@@ -21,5 +22,6 @@ public class XcTestAnswerTest {
         XcTestAnswer newAnswer =new XcTestAnswer();
         newAnswer.setTestId(73);
         newAnswer.setPoint(10);
+        System.out.println(new Date().getTime());
     }
 }

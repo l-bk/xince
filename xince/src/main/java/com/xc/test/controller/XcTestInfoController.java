@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.rmi.CORBA.Util;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -73,14 +74,9 @@ public class XcTestInfoController {
         try{
             XcTestInfo xcTestInfo = (XcTestInfo)JSONObject.toBean(JSONObject.fromObject(json.getObj()),XcTestInfo.class);
             Map<String,Object> map =xcTestInfoService.selectDetails(xcTestInfo);
-            int total=0;
-            if(xcTestInfo.getTestId() != null){
-                 total =xcTestQuestionService.selectCountByTestId(xcTestInfo.getTestId());
-            }
             result.setMsg("查询成功");
             result.setSuccess(true);
             result.setObj(map);
-            result.setTotal(Long.valueOf(total));
         }catch(Exception e){
             result.setSuccess(false);
             result.setMsg("查询失败");
@@ -110,6 +106,9 @@ public class XcTestInfoController {
         return result;
     }
 
+    /*
+    获取问题以及选项接口
+     */
     @RequestMapping(value="/selectQuestion.do",produces = "application/json",method = RequestMethod.POST)
     @ResponseBody
     public AjaxJSON selectQuestion(@RequestParam Map<String,Object>param,@RequestBody AjaxJSON json){
@@ -138,9 +137,24 @@ public class XcTestInfoController {
             if(map.size() != 0){
                 List<XcTestOptions> options=xcTestOptionsService.selectByQuestionId((Integer)map.get("questionId"));
                 map.put("options",options);
+                //判定是否有下一题
+                XcTestQuestion newQues =new XcTestQuestion();
+                newQues.setQuestionNum((Integer)map.get("questionNum")+1);
+                newQues.setTestId(xcTestQuestion.getTestId());
+                Map<String,Object> newMap=xcTestQuestionService.selectByTestId(newQues);
+                if(newMap != null){
+                    map.put("ifNext","Y");
+                }else{
+                    map.put("ifNext","N");
+                }
+                result.setObj(map);
+                result.setSuccess(true);
+            }else{
+                result.setSuccess(true);
+                result.setMsg("不存在测试问题");
+                result.setObj(map);
             }
-            result.setObj(map);
-            result.setSuccess(true);
+
         }catch (Exception e){
             result.setSuccess(false);
             result.setMsg("查询失败");
@@ -148,6 +162,9 @@ public class XcTestInfoController {
         return result;
     }
 
+    /*
+    结果判定接口
+     */
     @RequestMapping(value="/selectAnswer.do",produces = "application/json",method = RequestMethod.POST)
     @ResponseBody
     public AjaxJSON selectAnswer (@RequestParam Map<String,Object>param,@RequestBody AjaxJSON json){

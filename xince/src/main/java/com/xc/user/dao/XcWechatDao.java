@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface XcWechatDao {
 
-    public List<XcWechat> ifExist(XcWechat xcWechat);
+    public XcWechat ifExist(XcWechat xcWechat);
 
     public void insert(XcWechat xcWechat);
 }
