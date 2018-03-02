@@ -1,6 +1,6 @@
 package com.xc.user.service.impl;
 
-import com.xc.pay.entity.XcChatConfig;
+import com.xc.pay.entity.WeChatConfig;
 import com.xc.user.dao.XcWechatDao;
 import com.xc.user.entity.XcWechat;
 import com.xc.user.service.XcWechatService;
@@ -35,7 +35,7 @@ public class XcWechatServiceImpl implements XcWechatService {
 
 
     public String WeChatLogin(String code) {
-        String app_url = url.replace("APPID",XcChatConfig.appid).replace("SECRET",XcChatConfig.secret).replace("JSCODE",code);
+        String app_url = url.replace("APPID", WeChatConfig.appid).replace("SECRET", WeChatConfig.secret).replace("JSCODE",code);
         JSONObject resultJSON = JSONObject.fromObject(RequestUtils.httpRequest(app_url));
         if(resultJSON.containsKey("errcode")){
             return "error";

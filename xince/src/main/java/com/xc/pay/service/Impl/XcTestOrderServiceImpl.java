@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 @Service("XcTestOrderService")
 public class XcTestOrderServiceImpl implements XcTestOrderService {
 
+
     @Resource
     private XcTestOrderDao xcTestOrderDao;
 
@@ -19,6 +20,14 @@ public class XcTestOrderServiceImpl implements XcTestOrderService {
         }
         return xcTestOrderDao.insert(xcTestOrder);
 
+    }
+
+    public int update(XcTestOrder xcTestOrder) {
+        if(null == xcTestOrder){
+
+            return 0;
+        }
+        return xcTestOrderDao.update(xcTestOrder);
     }
 
 }

@@ -1,13 +1,13 @@
 package com.xc.util;
 
 
-import com.xc.pay.entity.XcChatConfig;
+import com.xc.pay.entity.WeChatConfig;
 
 import java.util.Date;
 import java.util.UUID;
 
 public class UUIDTool {
-    private static int num=1;
+
 
     public UUIDTool() {
     }
@@ -28,12 +28,7 @@ public class UUIDTool {
         return uuidStr;
     }
 
-    public static String getOrderId(){
-        long now = new Date().getTime();
-        String str = XcChatConfig.mchId +now+num;//商户号+当前时间戳+自增数字
-        num++;
-        return  str;
-    }
+
 
 
 }

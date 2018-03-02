@@ -3,7 +3,9 @@ package com.xc.pay.service;
 import com.xc.pay.entity.XcTestOrder;
 import com.xc.user.entity.XcWechat;
 
+import java.util.Map;
+
 public interface WechatPayService {
-    public String createOrder(XcWechat xcWechat,XcTestOrder xcTestOrder);
+    public Map<String,Object> createOrder(XcWechat xcWechat, XcTestOrder xcTestOrder);
 
 }
