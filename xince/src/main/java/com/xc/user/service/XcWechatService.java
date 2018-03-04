@@ -9,4 +9,6 @@ public interface XcWechatService {
     public String WeChatLogin(String code);
 
     public XcWechat ifExist(XcWechat xcWechat);
+
+    public int update(XcWechat xcWechat);
 }

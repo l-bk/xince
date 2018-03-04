@@ -1,5 +1,9 @@
 package com.xc.module.entity;
 
+import com.xc.test.entity.XcTestInfo;
+
+import java.util.Map;
+
 public class XcModule {
     private Integer moduleId;
     private String moduleName;
@@ -8,6 +12,8 @@ public class XcModule {
     private Integer picId;
     private String moduleStatus;
     private String modulePic;
+
+    private Map<String,Object> map;
 
     public String getModulePic() {
         return modulePic;
@@ -75,5 +81,13 @@ public class XcModule {
 
     public void setPicPath(String picPath) {
         this.picPath = picPath;
+    }
+
+    public Map<String, Object> getMap() {
+        return map;
+    }
+
+    public void setMap(Map<String, Object> map) {
+        this.map = map;
     }
 }

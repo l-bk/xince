@@ -9,4 +9,6 @@ public interface XcWechatDao {
     public XcWechat ifExist(XcWechat xcWechat);
 
     public void insert(XcWechat xcWechat);
+
+    public int update(XcWechat xcWechat);
 }

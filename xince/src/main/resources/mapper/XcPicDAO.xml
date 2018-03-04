@@ -7,7 +7,8 @@
         a.pic_type AS "picType",
         a.del_flag AS "delFlag",
         a.pic_status AS "picStatus",
-        a.pic_name AS "picName"
+        a.pic_name AS "picName",
+        a.test_id AS "testId"
     </sql>
     <select id="selectAll" parameterType="com.xc.pic.entity.XcPic" resultType="com.xc.pic.entity.XcPic" >
         select

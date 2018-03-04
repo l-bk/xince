@@ -8,7 +8,7 @@ public class WeChatConfig {
     public static final String mchId = "1498901782"; //商户号
     public static final String key ="123aB18826107953123aB18826107953"; //key为商户平台设置的密钥key
     public static final String tradeType="JSAPI";
-    public static final String notifyUrl="https://www.magicdn.club/WechatPay/payNotify.do";//回调url
+    public static final String notifyUrl="https://www.magicdn.club/xince/WechatPay/payNotify.do";//回调url
     public static final String pay_url = "https://api.mch.weixin.qq.com/pay/unifiedorder";//订单url
     private String body;
     private String outTradeNo;

@@ -2,9 +2,9 @@ package com.xc.util;
 
 import com.xc.pay.entity.WeChatConfig;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
-import org.w3c.dom.Document;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
@@ -85,7 +85,7 @@ public class PayUtil {
      * @return
      */
     public static String sign(String text, String key, String input_charset) {
-        text = text + key;
+        text = text +"&key="+ key;
         return DigestUtils.md5Hex(getContentBytes(text, input_charset));
     }
 
@@ -157,7 +157,7 @@ public class PayUtil {
         Map m = new HashMap();
         InputStream in = new ByteArrayInputStream(strxml.getBytes());
         SAXBuilder builder = new SAXBuilder();
-        org.jdom2.Document doc = builder.build(in);
+        Document doc = builder.build(in);
         Element root = doc.getRootElement();
         List list = root.getChildren();
         Iterator it = list.iterator();

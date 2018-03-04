@@ -43,6 +43,15 @@
                 #{userName},
             </if>
         </trim>
-
     </insert>
+    <update id="update">
+        update xc_wechat
+        <set>
+            <if test="userSex != null and userSex != ''">
+                user_sex= #{userSex}
+            </if>
+        </set>
+        where open_id = #{openId}
+    </update>
+
 </mapper>

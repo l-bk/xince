@@ -18,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 @Service("XcWechatService")
 public class XcWechatServiceImpl implements XcWechatService {
 
+
     @Resource
     private XcWechatDao xcWechatDao;
 
@@ -68,4 +69,12 @@ public class XcWechatServiceImpl implements XcWechatService {
         }
         return xcWechatDao.ifExist(xcWechat);
     }
+
+    public int update(XcWechat xcWechat) {
+        if(xcWechat == null ){
+            return 0;
+        }
+        return xcWechatDao.update(xcWechat);
+    }
+
 }

@@ -27,26 +27,29 @@ public class XcchatPayServiceImpl implements WechatPayService {
     @Resource
     private XcTestInfoDao xcTestInfoDao;
 
-    public Map<String,Object> createOrder(XcWechat xcWechat,XcTestOrder xcTestOrder) {
-        if(xcWechat == null || xcTestOrder == null){
+    public Map<String,Object> createOrder(XcWechat xcWechat,XcTestOrder xcTestOrder,String payType) {
+        if(xcWechat == null || xcTestOrder == null || payType == null){
             return null;
         }
-        Map<String,Object> map =new HashMap<String, Object>() ;
         XcWechat newWechat=xcWechatDao.ifExist(xcWechat);
         XcTestInfo xcTestInfo =new XcTestInfo();
         xcTestInfo.setTestId(xcTestOrder.getTestId());
         Map<String,Object> newMap= xcTestInfoDao.selectDetails(xcTestInfo);
-        if(newWechat != null && map != null){
+        if(newWechat != null && newMap != null ){
             xcTestOrder.setUserId(newWechat.getUserId());
             xcTestOrder.setTestId(xcTestOrder.getTestId());
-            xcTestOrder.setOrderName(String.valueOf(map.get("testSubject")));
+            if("1".equals(payType)){
+                xcTestOrder.setOrderName(String.valueOf(newMap.get("testSubject")));
+            }else if ("2".equals(payType)){
+                xcTestOrder.setOrderName(String.valueOf(newMap.get("testSubject"))+"-打赏订单");
+            }
             xcTestOrder.setOrderStatus("0");
             String orderId = PayUtil.getOrderId();
             xcTestOrder.setOrderId(orderId);
            int num = xcTestOrderDao.insert(xcTestOrder);
            if(num == 1){
                newMap.put("orderId",orderId);
-               newMap.put("testSubject",String.valueOf(map.get("testSubject")));
+               newMap.put("testSubject",String.valueOf(newMap.get("testSubject")));
                newMap.put("price",String.valueOf(newMap.get("testPreferentialPrice")));
                return newMap;
            }

@@ -1,5 +1,7 @@
 package com.xc.pic.entity;
 
+import java.util.Map;
+
 public class XcPic {
     private Integer picId; //唯一标识
     private String picPath;//图片路径
@@ -7,6 +9,25 @@ public class XcPic {
     private String delFlag;
     private String picStatus;
     private String picName;
+    private Integer testId;
+
+    private Map<String ,Object> map;
+
+    public Map<String, Object> getMap() {
+        return map;
+    }
+
+    public void setMap(Map<String, Object> map) {
+        this.map = map;
+    }
+
+    public Integer getTestId() {
+        return testId;
+    }
+
+    public void setTestId(Integer testId) {
+        this.testId = testId;
+    }
 
     public Integer getPicId() {
         return picId;

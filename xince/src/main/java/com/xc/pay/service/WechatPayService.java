@@ -6,6 +6,6 @@ import com.xc.user.entity.XcWechat;
 import java.util.Map;
 
 public interface WechatPayService {
-    public Map<String,Object> createOrder(XcWechat xcWechat, XcTestOrder xcTestOrder);
+    public Map<String,Object> createOrder(XcWechat xcWechat, XcTestOrder xcTestOrder,String payType);
 
 }
