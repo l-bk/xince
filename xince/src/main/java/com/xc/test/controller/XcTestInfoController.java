@@ -176,7 +176,7 @@ public class XcTestInfoController {
             String[] arr= pointStr.split(",");
             int point=0;
             for(int i=0;i<arr.length;i++){
-                point = Integer.valueOf(arr[i]);
+                point += Integer.valueOf(arr[i]);
             }
             xcTestAnswer.setPoint(point);
             Map<String,Object> map= xcTestAnswerService.selectAnswerByPoint(xcTestAnswer);
