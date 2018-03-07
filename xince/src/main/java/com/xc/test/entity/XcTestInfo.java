@@ -19,7 +19,7 @@ public class XcTestInfo {
     private String delFlag;
     private Date createTime;
     private String ifShow;
-    private BigDecimal testUseNum;
+    private String testUseNum;
     private String testLogo;
 
     public Integer getTestId() {
@@ -143,11 +143,11 @@ public class XcTestInfo {
         this.ifShow = ifShow;
     }
 
-    public BigDecimal getTestUseNum() {
+    public String getTestUseNum() {
         return testUseNum;
     }
 
-    public void setTestUseNum(BigDecimal testUseNum) {
+    public void setTestUseNum(String testUseNum) {
         this.testUseNum = testUseNum;
     }
 
