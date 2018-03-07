@@ -119,10 +119,10 @@ public class XcTestInfoController {
             XcTestOptions xcTestOptions=(XcTestOptions)JSONObject.toBean(JSONObject.fromObject(json.getObj()),XcTestOptions.class);
             int i=1;
             Map<String,Object> map= new HashMap<String, Object>();
-
-        if(null != xcTestOptions.getOptionsId() && !"".equals(xcTestOptions.getOptionsId())){
-                XcTestOptions newOption = xcTestOptionsService.selectByOptionsId(xcTestOptions.getOptionsId());
-                if("1".equals(newOption.getIfSkip())){//跳题
+            XcTestOptions newOption = new XcTestOptions();
+        if(null != xcTestOptions.getOptionsId() && !"".equals(xcTestOptions.getOptionsId())){ //不是第一个问题，就传optionsId
+                 newOption = xcTestOptionsService.selectByOptionsId(xcTestOptions.getOptionsId());
+                if("1".equals(newOption.getIfSkip())){//跳题，直接拿问题中的skipQuestionId
                     map=xcTestQuestionService.selectByQuestionId(newOption.getSkipQuestionId());
                 }else if("0".equals(newOption.getIfSkip())){//不跳题
                     XcTestQuestion  newQuestion=xcTestQuestionService.selectByOptionsId(xcTestOptions.getOptionsId());
@@ -142,10 +142,14 @@ public class XcTestInfoController {
                 newQues.setQuestionNum((Integer)map.get("questionNum")+1);
                 newQues.setTestId(xcTestQuestion.getTestId());
                 Map<String,Object> newMap=xcTestQuestionService.selectByTestId(newQues);
-                if(newMap != null){
+                if(newMap != null){//是否最后一题
                     map.put("ifNext","Y");
-                }else{
-                    map.put("ifNext","N");
+                }else{//获取最后一题时要判断最后一题的所选选项是否是跳会前面题的情况
+                    if("1".equals(newOption.getIfSkip())){
+                        map.put("ifNext","Y");
+                    }else if("0".equals(newOption.getIfSkip())){
+                        map.put("ifNext","N");
+                    }
                 }
                 result.setObj(map);
                 result.setSuccess(true);
