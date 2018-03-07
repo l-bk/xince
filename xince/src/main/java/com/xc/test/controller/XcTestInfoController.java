@@ -139,24 +139,26 @@ public class XcTestInfoController {
                 List<XcTestOptions> options=xcTestOptionsService.selectByQuestionId((Integer)map.get("questionId"));
                 map.put("options",options);
                 //判定是否有下一题
-                XcTestQuestion newQues =new XcTestQuestion();
-                newQues.setQuestionNum((Integer)map.get("questionNum")+1);
-                newQues.setTestId(xcTestQuestion.getTestId());
-                Map<String,Object> newMap=xcTestQuestionService.selectByTestId(newQues);
-                if(newMap != null){//是否最后一题
-                    map.put("ifNext","Y");
-                }else{//获取最后一题时要判断最后一题的所选选项是否是跳会前面题的情况
-                    if("1".equals(newOption.getIfSkip())){
-                        map.put("ifNext","Y");
-                    }else if("0".equals(newOption.getIfSkip())){
-                        map.put("ifNext","N");
-                    }
-                }
+//                XcTestQuestion newQues =new XcTestQuestion();
+//                newQues.setQuestionNum((Integer)map.get("questionNum")+1);
+//                newQues.setTestId(xcTestQuestion.getTestId());
+//                Map<String,Object> newMap=xcTestQuestionService.selectByTestId(newQues);
+//                if(newMap != null){//是否最后一题
+//                    map.put("ifNext","Y");
+//                }else{//获取最后一题时要判断最后一题的所选选项是否是跳会前面题的情况
+//                    if("1".equals(newOption.getIfSkip())){
+//                        map.put("ifNext","Y");
+//                    }else if("0".equals(newOption.getIfSkip())){
+//                        map.put("ifNext","N");
+//                    }
+//                }
+                map.put("result","Y");
                 result.setObj(map);
                 result.setSuccess(true);
             }else{
                 result.setSuccess(true);
-                result.setMsg("不存在测试问题");
+                result.setMsg("不存在下一题");
+                map.put("result","N");
                 result.setObj(map);
             }
 
