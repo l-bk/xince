@@ -128,13 +128,14 @@ public class XcTestInfoController {
                     XcTestQuestion  newQuestion=xcTestQuestionService.selectByOptionsId(xcTestOptions.getOptionsId());
                     i=newQuestion.getQuestionNum()+1;
                     xcTestQuestion.setQuestionNum(i);
-                    map= xcTestQuestionService.selectByTestId(xcTestQuestion); //查询问题
+                    map= xcTestQuestionService.selectByTestId(xcTestQuestion) ; //查询问题
                 }
             }else{ //获取第一个问题时没传optionsId
                 xcTestQuestion.setQuestionNum(i);
                 map= xcTestQuestionService.selectByTestId(xcTestQuestion); //查询问题
             }
-            if(map.size() != 0){
+            if(map != null && map.size() != 0){
+
                 List<XcTestOptions> options=xcTestOptionsService.selectByQuestionId((Integer)map.get("questionId"));
                 map.put("options",options);
                 //判定是否有下一题
