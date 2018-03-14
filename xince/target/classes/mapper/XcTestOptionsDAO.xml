@@ -9,7 +9,9 @@
       a.test_question_id AS "testQuestionId",
       a.create_time AS "createTime",
       a.if_skip AS "ifSkip",
-      a.skip_question_id AS "skipQuestionId"
+      a.skip_question_id AS "skipQuestionId",
+      a.if_return AS "ifReturn",
+      a.return_answer_id AS  "returnAnswerId"
     </sql>
 
     <select id="selectByQuestionId" parameterType="java.lang.Integer" resultType="com.xc.test.entity.XcTestOptions">

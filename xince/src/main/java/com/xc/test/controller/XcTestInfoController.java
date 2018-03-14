@@ -107,7 +107,7 @@ public class XcTestInfoController {
     }
 
     /*
-    获取问题以及选项接口
+    获取分数类型问题以及选项接口
      */
     @RequestMapping(value="/selectQuestion.do",produces = "application/json",method = RequestMethod.POST)
     @ResponseBody
@@ -170,7 +170,49 @@ public class XcTestInfoController {
     }
 
     /*
-    结果判定接口
+        获取跳题类型问题以及选项接口
+     */
+    @RequestMapping(value ="/selectSkipQuestion.do",method = RequestMethod.POST,produces ="application/json" )
+    @ResponseBody
+    public AjaxJSON selectSkipQuestion(@RequestParam Map<String,Object> params,@RequestBody AjaxJSON ajaxJSON){
+        AjaxJSON result =new AjaxJSON();
+        try{
+            //testId options
+            XcTestQuestion xcTestQuestion =(XcTestQuestion) JSONObject.toBean(JSONObject.fromObject(ajaxJSON.getObj()),XcTestQuestion.class);
+            XcTestOptions xcTestOptions = (XcTestOptions)JSONObject.toBean(JSONObject.fromObject(ajaxJSON.getObj()),XcTestOptions.class);
+            int i= 1;
+            Map<String,Object> map =new HashMap<String, Object>();
+            if(null != xcTestOptions.getOptionsId() && !"".equals(xcTestOptions.getOptionsId()) ){//不是获取第一题需要optionsId
+                XcTestOptions newOptions=xcTestOptionsService.selectByOptionsId(xcTestOptions.getOptionsId());//获取上一题所选选项
+                if(null != newOptions && "0".equals(newOptions.getIfReturn())){//跳题
+                    map = xcTestQuestionService.selectByQuestionId(newOptions.getSkipQuestionId());
+                    map.put("ifResult","N");
+                }else if(null != newOptions && "1".equals(newOptions.getIfReturn())){//跳结果
+                    map.put("ifResult","Y");
+                }
+
+            }else{//获取第一题
+                xcTestQuestion.setQuestionNum(i);
+                map= xcTestQuestionService.selectByTestId(xcTestQuestion);
+                map.put("ifResult","N");
+            }
+            if( null != map & map.size() != 0 ){
+                Integer questionId =(Integer)map.get("questionId");
+                List<XcTestOptions> optionsList =xcTestOptionsService.selectByQuestionId(questionId);
+                map.put("options",optionsList);
+            }
+            result.setSuccess(true);
+            result.setObj(map);
+        }catch (Exception e){
+            result.setMsg("查询失败");
+            result.setSuccess(false);
+        }
+        return  result;
+    }
+
+
+    /*
+    分数类型结果接口
      */
     @RequestMapping(value="/selectAnswer.do",produces = "application/json",method = RequestMethod.POST)
     @ResponseBody
@@ -187,6 +229,26 @@ public class XcTestInfoController {
             }
             xcTestAnswer.setPoint(point);
             Map<String,Object> map= xcTestAnswerService.selectAnswerByPoint(xcTestAnswer);
+            result.setSuccess(true);
+            result.setObj(map);
+        }catch (Exception e){
+            result.setSuccess(false);
+            result.setMsg("查询失败");
+        }
+        return  result;
+    }
+
+    /*
+    跳题类型结果接口
+     */
+    @RequestMapping(value = "/selectSkipAnswer.do",method = RequestMethod.POST,produces = "application/json")
+    @ResponseBody
+    public AjaxJSON selectSkipAnswer(@RequestParam Map<String,Object> params,@RequestBody AjaxJSON ajaxJSON){
+        AjaxJSON result =new AjaxJSON();
+        try{
+            //answerId
+            XcTestAnswer xcTestAnswer = (XcTestAnswer) JSONObject.toBean(JSONObject.fromObject(ajaxJSON.getObj()),XcTestAnswer.class);
+            Map<String,Object> map =xcTestAnswerService.selectByAnswId(xcTestAnswer);
             result.setSuccess(true);
             result.setObj(map);
         }catch (Exception e){

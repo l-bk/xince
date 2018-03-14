@@ -16,6 +16,7 @@ public class XcTestAnswer {
     private Integer testId;
     private Date createTime;
     private Integer point;
+    private String answerNum;
 
     public Integer getAnswerId() {
         return answerId;
@@ -111,5 +112,13 @@ public class XcTestAnswer {
 
     public void setTestId(Integer testId) {
         this.testId = testId;
+    }
+
+    public String getAnswerNum() {
+        return answerNum;
+    }
+
+    public void setAnswerNum(String answerNum) {
+        this.answerNum = answerNum;
     }
 }

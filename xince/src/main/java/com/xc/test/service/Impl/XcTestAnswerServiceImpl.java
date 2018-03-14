@@ -20,4 +20,11 @@ public class XcTestAnswerServiceImpl implements XcTestAnswerService {
         }
         return  xcTestAnswerDao.selectAnswerByPoint(xcTestAnswer);
     }
+
+    public Map<String, Object> selectByAnswId(XcTestAnswer xcTestAnswer) {
+        if(null == xcTestAnswer){
+            return  null;
+        }
+        return  xcTestAnswerDao.selectByAnswId(xcTestAnswer);
+    }
 }

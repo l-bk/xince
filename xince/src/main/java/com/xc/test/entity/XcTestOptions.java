@@ -12,6 +12,8 @@ public class XcTestOptions {
     private Date createTime;
     private String ifSkip;
     private Integer skipQuestionId;
+    private String ifReturn;
+    private Integer returnAnswerId;
 
     public Integer getOptionsId() {
         return optionsId;
@@ -75,5 +77,21 @@ public class XcTestOptions {
 
     public void setSkipQuestionId(Integer skipQuestionId) {
         this.skipQuestionId = skipQuestionId;
+    }
+
+    public String getIfReturn() {
+        return ifReturn;
+    }
+
+    public void setIfReturn(String ifReturn) {
+        this.ifReturn = ifReturn;
+    }
+
+    public Integer getReturnAnswerId() {
+        return returnAnswerId;
+    }
+
+    public void setReturnAnswerId(Integer returnAnswerId) {
+        this.returnAnswerId = returnAnswerId;
     }
 }

@@ -18,7 +18,8 @@
         a.del_flag AS "delFlag",
         a.create_time AS "createTime",
         a.if_show AS "ifShow",
-        a.test_use_num AS  "testUseNum"
+        a.test_use_num AS  "testUseNum",
+        a.reward_num AS "rewardNum"
     </sql>
 
     <select id="findList" parameterType="com.xc.test.entity.XcTestInfo" resultType="com.xc.test.entity.XcTestInfo">

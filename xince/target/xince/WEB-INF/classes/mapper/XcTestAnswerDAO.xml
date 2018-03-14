@@ -12,7 +12,8 @@
       CONCAT("https://www.magicdn.club",a.answer_QRCode) AS "answerQRCode",
       a.del_flag AS "delFlag",
       a.test_id AS "testId",
-      a.create_time AS "createTime"
+      a.create_time AS "createTime",
+      a.answer_num AS "answerNum"
     </sql>
 
     <select id="selectAnswerByPoint" parameterType="com.xc.test.entity.XcTestAnswer" resultType="java.util.Map">
@@ -22,6 +23,13 @@
       WHERE  a.answer_point_gt &lt;= #{point}
         and  #{point } &lt;= a.answer_point_lt
         and a.test_id = #{testId}
+    </select>
+
+    <select id="selectByAnswId" parameterType="com.xc.test.entity.XcTestAnswer" resultType="java.util.Map">
+      select
+      <include refid="selectAll"/>
+      from xc_test_answer AS  a
+      where a.answer_id = #{answerId}
     </select>
 
 </mapper>
