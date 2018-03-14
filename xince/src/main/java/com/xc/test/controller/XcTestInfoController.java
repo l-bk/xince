@@ -246,8 +246,11 @@ public class XcTestInfoController {
     public AjaxJSON selectSkipAnswer(@RequestParam Map<String,Object> params,@RequestBody AjaxJSON ajaxJSON){
         AjaxJSON result =new AjaxJSON();
         try{
-            //answerId
-            XcTestAnswer xcTestAnswer = (XcTestAnswer) JSONObject.toBean(JSONObject.fromObject(ajaxJSON.getObj()),XcTestAnswer.class);
+            //options
+            XcTestOptions xcTestOptions = (XcTestOptions) JSONObject.toBean(JSONObject.fromObject(ajaxJSON.getObj()),XcTestOptions.class);
+            XcTestOptions newOptions = xcTestOptionsService.selectByOptionsId(xcTestOptions.getOptionsId());
+            XcTestAnswer xcTestAnswer = new XcTestAnswer();
+            xcTestAnswer.setAnswerId(newOptions.getReturnAnswerId());
             Map<String,Object> map =xcTestAnswerService.selectByAnswId(xcTestAnswer);
             result.setSuccess(true);
             result.setObj(map);
