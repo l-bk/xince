@@ -152,13 +152,13 @@ public class XcTestInfoController {
 //                        map.put("ifNext","N");
 //                    }
 //                }
-                map.put("result","Y");
+                map.put("ifNext","Y");
                 result.setObj(map);
                 result.setSuccess(true);
             }else{
                 result.setSuccess(true);
                 result.setMsg("不存在下一题");
-                map.put("result","N");
+                map.put("ifNext","N");
                 result.setObj(map);
             }
 
