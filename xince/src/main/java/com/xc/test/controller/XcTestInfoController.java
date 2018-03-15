@@ -134,7 +134,7 @@ public class XcTestInfoController {
                 xcTestQuestion.setQuestionNum(i);
                 map= xcTestQuestionService.selectByTestId(xcTestQuestion); //查询问题
             }
-            if(map != null && map.size() != 0){
+            if(null != map  && map.size() != 0){
 
                 List<XcTestOptions> options=xcTestOptionsService.selectByQuestionId((Integer)map.get("questionId"));
                 map.put("options",options);
@@ -158,6 +158,7 @@ public class XcTestInfoController {
             }else{
                 result.setSuccess(true);
                 result.setMsg("不存在下一题");
+                map = new HashMap<String, Object>();
                 map.put("ifNext","N");
                 result.setObj(map);
             }
